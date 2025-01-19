@@ -1,46 +1,45 @@
 ---
-title: Introduction
+description: Integrate your dapp with the MetaMask wallet.
 ---
 
-# Integrate with the MetaMask wallet
+# Integrate your dapp with the MetaMask wallet
 
-Integrate your dapp with the MetaMask wallet using the
-[MetaMask Ethereum provider API](reference/provider-api.md), which enables your dapp to interact
-with its users' Ethereum accounts.
-We recommend using [MetaMask SDK](how-to/use-sdk) to easily enable your users to connect to their
-MetaMask wallet client from any platform.
+Integrate your dapp with MetaMask using **MetaMask SDK** and the **Wallet API**.
+Use MetaMask SDK to create a seamless connection between your dapp and MetaMask across desktop and
+mobile platforms.
+Use the Wallet API to interact with users' EVM accounts in MetaMask.
 
-Get started by [setting up your development environment](get-started/set-up-dev-environment.md).
+Get started by [connecting to MetaMask](connect/index.md).
 
-:::note
-- This documentation assumes intermediate knowledge of JavaScript, HTML, and CSS.
-- To learn how to extend the functionality of MetaMask, visit the
-  [MetaMask Snaps developer documentation](../snaps).
-:::
+## Why use MetaMask SDK?
 
-## What is the MetaMask Ethereum provider API?
+**MetaMask SDK** enables a reliable, secure, and seamless connection between your dapp and the
+MetaMask browser extension or MetaMask Mobile, providing cross-platform compatibility with a
+consistent user experience.
+Key benefits include:
 
-The [MetaMask Ethereum provider API](reference/provider-api.md) is a JavaScript API that MetaMask
-injects into websites visited by MetaMask users.
-Your dapp can use this API to request users' Ethereum accounts, read data from blockchains the user
-is connected to, and suggest that the user sign messages and transactions.
+- **Multi-platform support** - Connect from web, desktop, mobile, and gaming platforms.
+- **Seamless connections** - Minimize reconnections and improve user experience, especially on mobile.
+- **Mobile-first optimization** - Enable faster wallet interactions with instant deeplinks and advanced features.
+- **Enhanced functionality** - Use [RPC request batching](how-to/batch-json-rpc-requests.md),
+  [EIP-6963](/wallet/concepts/wallet-interoperability.md) for wallet discovery, and wallet security enhancements.
+- **Third-party library integration** - Use libraries like [Wagmi](connect/3rd-party-libraries/wagmi.md)
+  or [Web3-Onboard](connect/3rd-party-libraries/web3-onboard.md) that integrate SDK support.
 
-## What is MetaMask SDK?
+The **Wallet API** allows you to interact with users' EVM accounts using standardized JSON-RPC calls.
+While you can connect to the MetaMask extension directly using just the Wallet API, we recommend
+using the SDK or third-party libraries in conjunction with the Wallet API, to take advantage of the
+SDK's benefits.
 
-[MetaMask SDK](how-to/use-sdk/index.md) is a library that provides a reliable, secure, and seamless
-[connection](concepts/sdk-connections.md) from your dapp to the MetaMask browser extension and
-MetaMask Mobile.
-You can install the SDK into your dapp to enable your users to easily connect to a MetaMask wallet
-client from multiple platforms (web, desktop, and mobile).
+## Where do I start?
 
-For example, for dapps running on a desktop browser, MetaMask SDK checks if the MetaMask extension
-is installed.
-If MetaMask isn't installed, the SDK prompts the user to install it or connect to their MetaMask
-Mobile wallet using a QR code.
-For dapps running on a mobile browser, MetaMask SDK automatically deeplinks to the user's MetaMask
-Mobile wallet to make the connection.
+See [**Connect to MetaMask**](connect/index.md) to learn about the different connection options,
+and get started quickly.
 
 ## Questions?
 
-If you have questions about integrating your dapp with MetaMask, you can interact with the MetaMask
-team and community on the MetaMask channels on [ConsenSys Discord](https://discord.gg/consensys).
+For more support, connect with the MetaMask team and community on [Consensys Discord](https://discord.gg/consensys).
+
+:::note MetaMask user support
+For MetaMask user support, visit the [MetaMask Help Center](https://support.metamask.io/).
+:::

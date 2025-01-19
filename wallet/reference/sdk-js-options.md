@@ -1,44 +1,315 @@
 ---
-description: MetaMask JavaScript SDK options
+description: See the JavaScript SDK options reference.
+tags:
+  - JavaScript SDK
 ---
 
-# MetaMask JavaScript SDK options
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-The JavaScript version of [MetaMask SDK](../how-to/use-sdk/index.md) takes several options.
-For example, you can specify options as follows:
+# JavaScript SDK options
+
+The [JavaScript version of MetaMask SDK](../connect/metamask-sdk/javascript/index.md) takes the
+following options.
+
+### `checkInstallationImmediately`
+
+<Tabs>
+<TabItem value="Syntax">
 
 ```javascript
-const options = {
-  injectProvider: false,
-  communicationLayerPreference: 'webrtc',
-};
-
-const MMSDK = new MetaMaskSDK(options);
+checkInstallationImmediately: <boolean>
 ```
 
-The following table shows the full list of options:
+</TabItem>
+<TabItem value="Example">
 
-| Option name                    |                      Type                      | Default value | Description                                                                                                                                                                                                                                |
-|--------------------------------|:----------------------------------------------:|:-------------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `dappMetadata`                 | `{name: "My Dapp", url: "https://mydapp.com"}` |  `undefined`  | Only required for non-web dapps (for example, React Native and Unity).                                                                                                                                                                     |
-| `injectProvider`               |                   `boolean`                    |    `true`     | Doesn't inject in Node.js or React Native since the window object is unavailable.                                                                                                                                                          |
-| `forceInjectProvider`          |                   `boolean`                    |    `false`    | Forces injection even if another provider is already present on the window object.                                                                                                                                                         |
-| `forceDeleteProvider`          |                   `boolean`                    |    `false`    | Forces deletion of a provider that exists on a window.                                                                                                                                                                                     |
-| `checkInstallationImmediately` |                   `boolean`                    |    `false`    | The SDK checks if MetaMask is installed when a call to `eth_requestAccounts` is made. When `true`, it checks before any call is made.                                                                                                      |
-| `checkInstallationOnAllCalls`  |                   `boolean`                    |    `false`    | Normally checked when a call to `eth_requestAccounts` is made. When `true`, it checks on all calls.                                                                                                                                        |
-| `shouldShimWeb3`               |                   `boolean`                    |    `true`     | Set as `true` if `window.web3` should be shimmed for [legacy compatibility purposes](../how-to/migrate-api.md#replace-windowweb3).                                                                                                         |
-| `preferDesktop`                |                   `boolean`                    |    `false`    | For a web dapp running on a desktop browser without a MetaMask extension, the SDK gives the option to connect with a MetaMask Mobile wallet via a QR code. When `true`, the SDK guides the user to install the MetaMask extension instead. |
-| `openDeeplink`                 |        `(deeplinkUrl: string) => void`         |  `undefined`  | Platforms open deeplinks differently. For example, web: `window.open` versus React Native: `Linking.open`. This function retrieves the deeplink URL and allows developers to customize how it opens.                                       |
-| `getUniversalLink`             |                 `() => string`                 |  `undefined`  | Get the universal link that is presented on the QR Code (web) and deeplinks (mobile). This makes it easier to enable users to connect with backend code.                                                                                   |
-| `communicationLayerPreference` |             `"socket" or "webrtc"`             |   `socket`    | Defines the communication library that the dapp and MetaMask wallet use to communicate with each other. Waku or another similar decentralized communication layer solution coming soon.                                                    |
-| `webRTCLib`                    |                  `WebRTC Lib`                  |  `undefined`  | Not installed on the SDK by default.                                                                                                                                                                                                       |
-| `WalletConnectInstance`        |              `WalletConnect Lib`               |  `undefined`  | Connect a dapp to MetaMask using [WalletConnect](https://docs.walletconnect.com/). Not installed by default.                                                                                                                               |
-| `forceRestartWalletConnect`    |                   `boolean`                    |    `false`    | Set `forceRestartWalletConnect` to `true` to kill the previous WalletConnect session and start another one.                                                                                                                                |
-| `transports`                   |           `['websocket', 'polling']`           |  `undefined`  | Used to set the preference on [socket.io](https://socket.io/docs/v4/) transports to `use`.                                                                                                                                                 |
-| `timer`                        |               `BackgroundTimer`                |  `undefined`  | Used by React Native dapps to keep the dapp alive while using `react-native-background-timer` in the background                                                                                                                            |
-| `enableDebug`                  |                   `boolean`                    |    `true`     | Enables/disables the sending of debugging information to the socket.io server. The default is `true` for the beta version of the SDK. The default is `false` in production versions.                                                       |
+```javascript
+checkInstallationImmediately: true
+```
 
-:::tip
-If your project is a web dapp and `injectProvider` is `true`, then the `ethereum` object should be
-available in `window.ethereum`.
+</TabItem>
+</Tabs>
+
+Enables or disables immediately checking if MetaMask is installed on the user's browser.
+If `true`, the SDK checks for installation upon page load and sends a connection request, prompting
+the user to install MetaMask if it's not already installed.
+If `false`, the SDK waits for the connect method to be called to check for installation.
+
+The default is `false`.
+
+### `checkInstallationOnAllCalls`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+checkInstallationOnAllCalls: <boolean>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+checkInstallationOnAllCalls: true
+```
+
+</TabItem>
+</Tabs>
+
+Enables or disables checking if MetaMask is installed on the user's browser before each RPC request.
+The default is `false`.
+
+### `communicationServerUrl`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+communicationServerUrl: <string>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+communicationServerUrl: "https://metamask-sdk-socket.metafi.codefi.network/"
+```
+
+</TabItem>
+</Tabs>
+
+The URL of the communication server to use.
+This option is mainly used for debugging and testing the SDK.
+
+### `dappMetadata`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+dappMetadata: {
+  name: <string>,
+  url: <string>,
+  iconUrl: <string>,
+}
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+dappMetadata: {
+  name: "My Dapp",
+  url: "https://mydapp.com",
+  iconUrl: "https://mydapp.com/icon.png",
+}
+```
+
+</TabItem>
+</Tabs>
+
+Metadata about the dapp using the SDK.
+The metadata options are:
+
+- `name` - Name of the dapp
+- `url` - URL of the dapp
+- `iconUrl` - URL of the dapp's icon
+
+:::tip important
+Setting `dappMetadata` creates a clear and trustworthy user experience when connecting your dapp to
+MetaMask Mobile.
+MetaMask Mobile displays this metadata in the connection modal to help users identify and verify the
+connection request.
 :::
+
+### `defaultReadOnlyChainId`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+defaultReadOnlyChainId: <number or hexadecimal string>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+defaultReadOnlyChainId: "0x1"
+```
+
+</TabItem>
+</Tabs>
+
+Enables sending [read-only RPC requests](../how-to/make-read-only-requests.md) to
+this chain ID before the user connects to MetaMask.
+The value is automatically updated to the chain ID used in MetaMask once connected.
+
+### `enableAnalytics`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+enableAnalytics: <boolean>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+enableAnalytics: true
+```
+
+</TabItem>
+</Tabs>
+
+Enables or disables sending anonymous analytics to MetaMask to help improve the SDK.
+The default is `true`.
+
+### `extensionOnly`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+extensionOnly: <boolean>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+extensionOnly: true
+```
+
+</TabItem>
+</Tabs>
+
+Enables or disables automatically using the MetaMask browser extension if it's detected.
+The default is `true`.
+
+### `infuraAPIKey`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+infuraAPIKey: <string>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+infuraAPIKey: process.env.INFURA_API_KEY
+```
+
+</TabItem>
+</Tabs>
+
+The [Infura API key](/developer-tools/dashboard/get-started/create-api) to
+use for RPC requests.
+Configure this option to [make read-only RPC requests from your dapp](../how-to/make-read-only-requests.md).
+
+:::caution important
+Use [Infura allowlists](https://docs.infura.io/networks/ethereum/how-to/secure-a-project/use-an-allowlist)
+to protect against other people submitting requests to your API key.
+You can restrict interactions to specific addresses, origins, user agents, and request methods.
+We recommend using all allowlist options to maximize the security of your API key and dapp.
+:::
+
+### `headless`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+headless: <boolean>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+headless: true
+```
+
+</TabItem>
+</Tabs>
+
+Enables or disables headless mode.
+Setting this to `true` allows you to [display custom modals](../how-to/display/custom-modals.md).
+The default is `false`.
+
+### `openDeeplink`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+openDeeplink: <function>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+openDeeplink: (link: string) => {
+  if (canOpenLink) {
+    Linking.openURL(link);
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+A function that is called to open a deeplink to the MetaMask Mobile app.
+
+### `readonlyRPCMap`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+readonlyRPCMap: <map>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+readonlyRPCMap: {
+  "0x539": "http://localhost:8545",
+}
+```
+
+</TabItem>
+</Tabs>
+
+A map of RPC URLs to use for [read-only RPC requests](../how-to/make-read-only-requests.md).
+
+### `shouldShimWeb3`
+
+<Tabs>
+<TabItem value="Syntax">
+
+```javascript
+shouldShimWeb3: <boolean>
+```
+
+</TabItem>
+<TabItem value="Example">
+
+```javascript
+shouldShimWeb3: false
+```
+
+</TabItem>
+</Tabs>
+
+Enables or disables shimming the `window.web3` object with the Ethereum provider returned by the SDK
+(useful for compatibility with older browsers).
+The default is `true`.
