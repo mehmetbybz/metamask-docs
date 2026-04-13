@@ -19,8 +19,8 @@ import AuthModal, {
   AUTH_LOGIN_STEP,
   WALLET_LINK_TYPE,
 } from '@site/src/components/AuthLogin/AuthModal'
-import { DocSearchSidepanel } from '@docsearch/react/sidepanel';
-import '@docsearch/css/dist/sidepanel.css';
+import { DocSearchSidepanel } from '@docsearch/react/sidepanel'
+import '@docsearch/css/dist/sidepanel.css'
 
 interface Project {
   id: string
@@ -307,7 +307,7 @@ export default function Root({ children }: { children: ReactElement }) {
       <AlertProvider template={AlertTemplate} {...options}>
         {children}
         {isBrowser && (algolia?.assistantId || algolia?.askAi?.assistantId) ? (
-          <DocSearchSidepanel 
+          <DocSearchSidepanel
             appId={algolia.appId}
             apiKey={algolia.apiKey}
             assistantId={algolia.assistantId || algolia.askAi?.assistantId}

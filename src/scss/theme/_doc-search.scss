@@ -27,8 +27,12 @@
     color: var(--general-black) !important;
   }
 
-  .DocSearch-Hit[aria-selected='true'] a :is(.DocSearch-Hit-title, .DocSearch-Hit-path, .DocSearch-Hit-text),
-  .DocSearch-Hit[aria-selected='false'] a:hover :is(.DocSearch-Hit-title, .DocSearch-Hit-path, .DocSearch-Hit-text) {
+  .DocSearch-Hit[aria-selected='true']
+    a
+    :is(.DocSearch-Hit-title, .DocSearch-Hit-path, .DocSearch-Hit-text),
+  .DocSearch-Hit[aria-selected='false']
+    a:hover
+    :is(.DocSearch-Hit-title, .DocSearch-Hit-path, .DocSearch-Hit-text) {
     color: var(--general-black) !important;
   }
 }
@@ -120,8 +124,10 @@
     width: 1.6rem;
     height: 1.6rem;
     background-color: var(--docsearch-icon-color);
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h6l1 2h5v2H3V5h5l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM7 9h2v10H7V9Zm-1 12h12a2 2 0 0 0 2-2V7H4v12a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E") no-repeat center / contain;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h6l1 2h5v2H3V5h5l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM7 9h2v10H7V9Zm-1 12h12a2 2 0 0 0 2-2V7H4v12a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E") no-repeat center / contain;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h6l1 2h5v2H3V5h5l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM7 9h2v10H7V9Zm-1 12h12a2 2 0 0 0 2-2V7H4v12a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E")
+      no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 3h6l1 2h5v2H3V5h5l1-2Zm1 6h2v10h-2V9Zm4 0h2v10h-2V9ZM7 9h2v10H7V9Zm-1 12h12a2 2 0 0 0 2-2V7H4v12a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E")
+      no-repeat center / contain;
   }
 
   .DocSearch-Clear:hover::before {
@@ -376,7 +382,7 @@ button.DocSearch-SidepanelButton.floating {
 }
 
 /*  Algolia Ask AI Sidepanel  */
-div[class*="DocSearch-Sidepanel"] {
+div[class*='DocSearch-Sidepanel'] {
   font-family: var(--ifm-font-family-base) !important;
 
   .DocSearch-Sidepanel-Title {
@@ -403,16 +409,37 @@ div[class*="DocSearch-Sidepanel"] {
     font-size: 1rem !important;
   }
 
-  [class*="Answer"],
-  [class*="answer"],
-  [class*="Response"],
-  [class*="response"] {
-    p { margin-bottom: 1rem !important; line-height: 1.2 !important; }
-    h1, h2, h3, h4 { margin-top: 1.2rem !important; margin-bottom: 0.5rem !important; line-height: 1.2 !important; }
-    ol, ul { margin: 0.6rem 0 1rem 0 !important; padding-left: 1.5rem !important; }
-    li { margin-bottom: 0.5rem !important; line-height: 1.5 !important; }
-    pre { margin: 0.8rem 0 1rem !important; }
-    a { display: inline !important; }
+  [class*='Answer'],
+  [class*='answer'],
+  [class*='Response'],
+  [class*='response'] {
+    p {
+      margin-bottom: 1rem !important;
+      line-height: 1.2 !important;
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-top: 1.2rem !important;
+      margin-bottom: 0.5rem !important;
+      line-height: 1.2 !important;
+    }
+    ol,
+    ul {
+      margin: 0.6rem 0 1rem 0 !important;
+      padding-left: 1.5rem !important;
+    }
+    li {
+      margin-bottom: 0.5rem !important;
+      line-height: 1.5 !important;
+    }
+    pre {
+      margin: 0.8rem 0 1rem !important;
+    }
+    a {
+      display: inline !important;
+    }
   }
 
   textarea {
@@ -436,14 +463,14 @@ div[class*="DocSearch-Sidepanel"] {
     }
   }
 
-  [class*="ChatInput"],
-  [class*="chat-input"],
+  [class*='ChatInput'],
+  [class*='chat-input'],
   .DocSearch-ChatInputWrapper {
     display: flex !important;
     align-items: flex-end !important;
     gap: 0.8rem !important;
     background-color: #0d1117 !important;
-    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 1.2rem !important;
     padding: 1rem 1.2rem !important;
     transition: border-color 0.18s ease !important;
@@ -476,63 +503,63 @@ div[class*="DocSearch-Sidepanel"] {
     background: transparent !important;
     border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
   }
-  
+
   /* AI can make mistakes */
-  [class*="Disclaimer"],
-  [class*="disclaimer"] {
+  [class*='Disclaimer'],
+  [class*='disclaimer'] {
     font-size: 1.1rem !important;
     opacity: 0.65 !important;
     text-align: center !important;
     padding: 0.4rem 0 0.6rem !important;
   }
 }
- 
+
 /* Dark mode  */
-[data-theme='dark'] div[class*="DocSearch-Sidepanel"] {
+[data-theme='dark'] div[class*='DocSearch-Sidepanel'] {
   background-color: #1b1b1d !important;
   color: #e3e3e3 !important;
- 
-  [class*="MessageContent"],
-  [class*="message-content"],
-  [class*="AskAiScreen"] {
+
+  [class*='MessageContent'],
+  [class*='message-content'],
+  [class*='AskAiScreen'] {
     background-color: #1b1b1d !important;
     color: #e3e3e3 !important;
   }
- 
+
   .DocSearch-Sidepanel-Header {
     background-color: #1b1b1d !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     color: #e3e3e3 !important;
   }
- 
+
   /* Source */
   .DocSearch-AskAiScreen-RelatedSources-List a {
     background-color: #2a2a2e !important;
     color: #e3e3e3 !important;
     border-color: rgba(255, 255, 255, 0.08) !important;
   }
- 
+
   .DocSearch-AskAiScreen-MessageContent-Tool {
     color: #939397 !important;
   }
- 
+
   /* Code blocks */
   code {
     color: #e3e3e3 !important;
   }
 }
- 
+
 /* ── Light mode ── */
-[data-theme='light'] div[class*="DocSearch-Sidepanel"] {
-  [class*="ChatInput"],
-  [class*="chat-input"],
+[data-theme='light'] div[class*='DocSearch-Sidepanel'] {
+  [class*='ChatInput'],
+  [class*='chat-input'],
   .DocSearch-ChatInputWrapper {
     background-color: #f5f5f7 !important;
-    border-color: rgba(0, 0, 0, 0.10) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
 
     &:focus-within {
-      border-color: rgba(0, 0, 0, 0.30) !important;
-      box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.10) !important;
+      border-color: rgba(0, 0, 0, 0.3) !important;
+      box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1) !important;
     }
   }
 
@@ -540,21 +567,27 @@ div[class*="DocSearch-Sidepanel"] {
     color: #939397 !important;
   }
 
-  [class*="Answer"],
-  [class*="answer"],
-  [class*="Response"],
-  [class*="response"] {
-    code { color: #373739 !important; }
-    li { color: #1a1a1a !important; }
-    li::marker { color: #1a1a1a !important; }
+  [class*='Answer'],
+  [class*='answer'],
+  [class*='Response'],
+  [class*='response'] {
+    code {
+      color: #373739 !important;
+    }
+    li {
+      color: #1a1a1a !important;
+    }
+    li::marker {
+      color: #1a1a1a !important;
+    }
   }
 
-  [class*="Disclaimer"],
-  [class*="disclaimer"] {
+  [class*='Disclaimer'],
+  [class*='disclaimer'] {
     color: #373738 !important;
   }
 
-  button[type="submit"] {
+  button[type='submit'] {
     background-color: rgb(34, 93, 195) !important;
   }
 }

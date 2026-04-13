@@ -260,12 +260,12 @@ Configuration options passed to [`createSolanaClient`](#createsolanaclient).
 
 The object returned by [`createSolanaClient`](#createsolanaclient).
 
-| Property / Method  | Type                  | Description                                                    |
-| ------------------ | --------------------- | -------------------------------------------------------------- |
-| `core`             | `MultichainCore`      | The underlying MultichainCore instance.                        |
-| `getWallet`        | `() => Wallet`        | Returns a Wallet Standard compatible MetaMask wallet instance. |
-| `registerWallet`   | `() => Promise<void>` | Registers MetaMask with the Wallet Standard registry.          |
-| `disconnect`       | `() => Promise<void>` | Disconnects all Solana scopes from MetaMask.                   |
+| Property / Method | Type                  | Description                                                    |
+| ----------------- | --------------------- | -------------------------------------------------------------- |
+| `core`            | `MultichainCore`      | The underlying MultichainCore instance.                        |
+| `getWallet`       | `() => Wallet`        | Returns a Wallet Standard compatible MetaMask wallet instance. |
+| `registerWallet`  | `() => Promise<void>` | Registers MetaMask with the Wallet Standard registry.          |
+| `disconnect`      | `() => Promise<void>` | Disconnects all Solana scopes from MetaMask.                   |
 
 ## Next steps
 
