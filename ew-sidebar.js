@@ -735,6 +735,7 @@ const sidebar = {
       label: 'Advanced',
       items: [
         'sdk/android/advanced/README',
+        'sdk/android/advanced/smart-accounts',
         'sdk/android/advanced/custom-authentication',
         'sdk/android/advanced/whitelabel',
         'sdk/android/advanced/mfa',
@@ -746,7 +747,7 @@ const sidebar = {
       label: 'Usage',
       items: [
         'sdk/android/usage/README',
-        'sdk/android/usage/login',
+        'sdk/android/usage/connect-to',
         'sdk/android/usage/get-user-info',
         'sdk/android/usage/get-private-key',
         'sdk/android/usage/get-ed25519-private-key',
