@@ -570,18 +570,39 @@ mm decode <0x-calldata>
 
 ## `mm price`
 
-| Command               | Usage                                                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `mm price spot`       | `--asset-ids <ids> [--vs <currency>] [--market-data]`                                                                       |
-| `mm price history`    | `--chain-id <caip2> --asset-type <type> [--time-period <period>] [--interval <interval>] [--from] [--to] [--vs <currency>]` |
-| `mm price currencies` | Supported quote currencies                                                                                                  |
-| `mm price networks`   | Supported price networks                                                                                                    |
+| Command               | Usage                                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `mm price spot`       | `--asset-ids <ids> [--vs <currency>] [--market-data]`                                                                         |
+| `mm price history`    | `--chain-id <caip2> [--asset-type <type>] [--time-period <period>] [--interval <interval>] [--from] [--to] [--vs <currency>]` |
+| `mm price currencies` | Supported quote currencies                                                                                                    |
+| `mm price networks`   | Supported price networks                                                                                                      |
+
+### `mm price spot`
+
+```bash
+mm price spot --asset-ids <ids> [--vs <currency>] [--market-data]
+```
+
+`--asset-ids` accepts comma-separated CAIP-19 asset IDs, such as `eip155:1/slip44:60`.
+A bare CAIP-2 chain ID auto-completes to that chain's native asset, so `eip155:1` resolves to
+`eip155:1/slip44:60`:
+
+```bash
+mm price spot --asset-ids eip155:1,eip155:137
+```
+
+A malformed ID returns `INVALID_ASSET_ID` with a hint, and passing no IDs returns
+`MISSING_ASSET_IDS`. `mm token assets` does not auto-complete chain IDs and requires full CAIP-19
+asset IDs.
 
 ### `mm price history`
 
 ```bash
-mm price history --chain-id <caip2-chain-id> --asset-type <asset-type> [--time-period <period>] [--interval <interval>] [--from <unix>] [--to <unix>] [--vs <currency>]
+mm price history --chain-id <caip2-chain-id> [--asset-type <asset-type>] [--time-period <period>] [--interval <interval>] [--from <unix>] [--to <unix>] [--vs <currency>]
 ```
+
+`--asset-type` is optional and defaults to the chain's native asset, so `--chain-id eip155:1`
+resolves to `slip44:60`. An invalid asset type fails fast with `INVALID_ASSET_ID`.
 
 Use `--from` and `--to` for a custom range instead of `--time-period`.
 `--time-period` accepts Price API values such as `1d`, `7d`, `30d`, `2M`, `1y`, and `3y`.
@@ -677,12 +698,14 @@ mm config get <key>
 mm config set <key> <value>
 ```
 
-| Key                    | Accepted values        | Description                                                               |
-| ---------------------- | ---------------------- | ------------------------------------------------------------------------- |
-| `env`                  | `prod`, `dev`, `uat`   | Backend environment                                                       |
-| `verbose`              | `true`, `false`        | Default for the global `--verbose` flag                                   |
-| `format`               | `text`, `json`, `toon` | Default for the global `--format` flag                                    |
-| `walletTimeoutSeconds` | Integer (max 600)      | Default for `--wallet-timeout` on server-wallet signing and swap commands |
+| Key                                   | Accepted values        | Description                                                               |
+| ------------------------------------- | ---------------------- | ------------------------------------------------------------------------- |
+| `env`                                 | `prod`, `dev`, `uat`   | Backend environment                                                       |
+| `verbose`                             | `true`, `false`        | Default for the global `--verbose` flag                                   |
+| `format`                              | `text`, `json`, `toon` | Default for the global `--format` flag                                    |
+| `walletTimeoutSeconds`                | Integer (max 600)      | Default for `--wallet-timeout` on server-wallet signing and swap commands |
+| `experimentalPlugins`                 | `true`, `false`        | Enable the [plugin system](#mm-plugins). Beta, off by default             |
+| `experimentalAllowUnverifiedInstalls` | `true`, `false`        | Allow installing plugins from local or git sources. Development only      |
 
 Run `mm config get` with no key to show all values.
 Persisted `format` and `verbose` apply when you do not pass the corresponding global flags.
@@ -690,6 +713,29 @@ Override `env` for a single invocation with the `MM_ENV` environment variable.
 Non-prod sessions are stored in environment-scoped files under `~/.metamask/`, such as
 `session.dev.json`; prod uses `session.json`.
 `walletTimeoutSeconds` is the stored default for `--wallet-timeout` (see [Troubleshooting](../troubleshooting.md)).
+
+## `mm plugins`
+
+Manage plugins, npm packages that add custom commands to Agent Wallet.
+Plugins are a beta feature and are off by default.
+Enable them with `mm config set experimentalPlugins true`.
+See the [plugins overview](../plugins/index.md).
+
+```bash
+mm plugins                                   # list installed plugins
+mm plugins install <package>                 # interactive consent per package
+mm plugins install <package> --accept-permissions   # non-interactive / CI
+mm plugins inspect <package>
+mm plugins update                            # re-consents changed manifests
+mm plugins uninstall <package>
+```
+
+Installs from npm are consent-gated.
+Agent Wallet shows the plugin's commands, data access, and requested capabilities before
+installing, and fails closed if the package can't be verified.
+Plugin lifecycle scripts such as `postinstall` never run.
+Local `file:` and git sources are refused unless you opt in with
+`mm config set experimentalAllowUnverifiedInstalls true`, which is intended for development only.
 
 ## `mm tx`
 
